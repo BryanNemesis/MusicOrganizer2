@@ -5,7 +5,7 @@ description = ""
 authors = [
     {name = "Igor Binkowski", email = "ibinkowski@apptension.com"},
 ]
-dependencies = ["boto3~=1.19", "tekore~=4.0"]
+dependencies = ["boto3~=1.19", "tekore~=4.0", "uuid~=1.30"]
 requires-python = ">=3.8"
 dynamic = ["classifiers"]
 license = {text = "MIT"}

@@ -17,6 +17,7 @@ var/
 *.egg
 __pypackages__/
 node_modules/
+.pyc
 
 # Serverless directories
 .serverless
