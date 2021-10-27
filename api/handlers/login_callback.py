@@ -1,15 +1,14 @@
 import json
-import os
 
-from clients.spotify import spotify_client
+from clients.spotify import user_spotify_client as sp
 from utils.utils import get_cookie_value, http_or_https
 from models.user import User
 
 
 def handler(event, context):
     code = event["queryStringParameters"]["code"]
-    token = spotify_client.get_user_token(code)
-    user_id = spotify_client.get_current_user_id(token)
+    token = sp.get_user_token(code)
+    user_id = sp.get_current_user_id(token)
     user = User(user_id, token)
     result = user.save_to_db()
 

@@ -7,7 +7,7 @@ from models.user import User
 from utils.utils import get_cookie_value, redirect
 
 
-class SpotifyClient:
+class UserSpotifyClient:
     def __init__(self):
         if os.environ.get('IS_OFFLINE'):
             config = tk.config_from_environment()[:2] + (os.environ.get('SPOTIFY_REDIRECT_URI_LOCAL'),)
@@ -42,4 +42,16 @@ class SpotifyClient:
             return self.client.saved_albums()
 
 
-spotify_client = SpotifyClient()
+class AppSpotifyClient:
+    def __init__(self):
+        config = tk.config_from_environment()
+        token = tk.request_client_token(*config[:2])
+        self.client = tk.Spotify(token)
+
+    def get_album(self, id):
+        # might wanna use "albums" if this is slow but i dont wanna fuck with paging now
+        return self.client.album(id)
+
+
+user_spotify_client = UserSpotifyClient()
+app_spotify_client = AppSpotifyClient()
