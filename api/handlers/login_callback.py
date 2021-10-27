@@ -17,7 +17,7 @@ def handler(event, context):
         response = {
             "statusCode": 302,
             "headers": {
-                "Location": f"{http_or_https()}{event['headers']['Host']}{get_cookie_value(event, 'last_location')}",
+                "Location": f"{http_or_https()}{event['headers'].get('host') or event['headers'].get('Host')}{get_cookie_value(event, 'last_location')}",
                 "Set-Cookie": f"user_id={user_id}",
             },
         }
