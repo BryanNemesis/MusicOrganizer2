@@ -6,16 +6,16 @@ plugins:
   - serverless-python-requirements
 frameworkVersion: '2'
 useDotenv: true
-environment:
-  SPOTIFY_CLIENT_ID: ${env:SPOTIFY_CLIENT_ID}
-  SPOTIFY_CLIENT_SECRET: ${env:SPOTIFY_CLIENT_SECRET}
-  SPOTIFY_REDIRECT_URI: ${env:SPOTIFY_REDIRECT_URI}
 
 provider:
   name: aws
   runtime: python3.8
   lambdaHashingVersion: '20201221'
   region: eu-central-1
+  environment:
+    SPOTIFY_CLIENT_ID: ${env:SPOTIFY_CLIENT_ID}
+    SPOTIFY_CLIENT_SECRET: ${env:SPOTIFY_CLIENT_SECRET}
+    SPOTIFY_REDIRECT_URI: ${env:SPOTIFY_REDIRECT_URI}
   iamRoleStatements:
   - Effect: "Allow"
     Action:
