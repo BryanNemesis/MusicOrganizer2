@@ -1,0 +1,62 @@
+org: bryannemesis
+app: bryan-music-app
+service: bryan-music-app-api
+plugins:
+  - serverless-offline
+  - serverless-python-requirements
+frameworkVersion: '2'
+useDotenv: true
+environment:
+  SPOTIFY_CLIENT_ID: ${env:SPOTIFY_CLIENT_ID}
+  SPOTIFY_CLIENT_SECRET: ${env:SPOTIFY_CLIENT_SECRET}
+  SPOTIFY_REDIRECT_URI: ${env:SPOTIFY_REDIRECT_URI}
+
+provider:
+  name: aws
+  runtime: python3.8
+  lambdaHashingVersion: '20201221'
+  region: eu-central-1
+  iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - dynamodb:Query
+      - dynamodb:Scan
+      - dynamodb:GetItem
+      - dynamodb:PutItem
+      - dynamodb:UpdateItem
+      - dynamodb:DeleteItem
+    Resource:
+      Fn::GetAtt:
+        - CollectionsDBTable
+        - Arn
+  - Effect: "Allow"
+    Action:
+      - dynamodb:Query
+      - dynamodb:Scan
+      - dynamodb:GetItem
+      - dynamodb:PutItem
+      - dynamodb:UpdateItem
+      - dynamodb:DeleteItem
+    Resource:
+      Fn::GetAtt:
+        - UsersDBTable
+        - Arn
+
+functions:
+  get_saved_albums:
+    handler: handlers/get_saved_albums.handler
+    events:
+      - httpApi:
+          path: /get_saved_albums
+          method: get
+
+  login_callback:
+    handler: handlers/login_callback.handler
+    events:
+      - httpApi:
+          path: /login_callback
+          method: get
+
+resources:
+  - ${file(resources/collections-table.yml)}
+  - ${file(resources/users-table.yml)}
