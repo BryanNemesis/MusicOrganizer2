@@ -57,6 +57,13 @@ functions:
           path: /login_callback
           method: get
 
+  create_collection:
+    handler: handlers/create_collection.handler
+    events:
+      - httpApi:
+          path: /collections
+          method: post
+
 resources:
   - ${file(resources/collections-table.yml)}
   - ${file(resources/users-table.yml)}

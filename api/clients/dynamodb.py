@@ -8,8 +8,22 @@ class DynamodbClient:
     def get_user(self, user_id):
         return self.client.get_item(TableName="users", Key={"user_id": {"S": user_id}})
 
+    def update_user_collections_list(self, user_id, collection_id):
+        return self.client.update_item(
+            TableName="users",
+            Key={"user_id": {"S": str(user_id)}},
+            UpdateExpression="ADD collections :c",
+            ExpressionAttributeValues={":c": {'SS': [str(collection_id)]}}
+        )
+
     def save_user(self, item):
         return self.client.put_item(TableName="users", Item=item)
+
+    def get_collection(self, id):
+        return self.client.get_item(TableName="collections", Key={"id": {"S": id}})
+
+    def save_collection(self, item):
+        return self.client.put_item(TableName="collections", Item=item)
 
 
 dynamodb_client = DynamodbClient()
