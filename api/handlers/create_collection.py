@@ -21,6 +21,6 @@ def handler(event, context):
         }
     else:
         return {
-            "statusCode": 400,
+            "statusCode": 500,
             "body": json.dumps({"msg": f"Problem occured when trying to save collection {name}."})
         }

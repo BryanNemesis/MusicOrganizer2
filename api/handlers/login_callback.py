@@ -21,7 +21,7 @@ def handler(event, context):
         }
     else:
         response = {
-            "statusCode": 400,
+            "statusCode": 500,
             "body": json.dumps({"msg": f"Error while trying to save user"}),
         }
 

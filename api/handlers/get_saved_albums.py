@@ -8,7 +8,7 @@ def handler(event, context):
     token = sp.get_user_token(event)
     if not token:
         return {
-            "statusCode": 400,
+            "statusCode": 500,
             "body": json.dumps({"msg": "Could not get user token."})
         }
 
