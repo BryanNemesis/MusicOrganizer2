@@ -26,7 +26,7 @@ class Collection:
         return dynamodb_client.save_collection(item)
 
     def add_for_user(self, user_id):
-        return dynamodb_client.update_user_collections_list(user_id, self.id)
+        return dynamodb_client.add_collection_to_user(user_id, self.id)
 
     @classmethod
     def get_from_db(cls, id, get_albums=True):

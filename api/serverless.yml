@@ -92,6 +92,13 @@ functions:
           path: /collections/{collection_id}
           method: GET
 
+  add_album_to_collection:
+    handler: handlers/add_album_to_collection.handler
+    events:
+      - httpApi:
+          path: /collections/{collection_id}
+          method: POST
+
 
 
 resources:
