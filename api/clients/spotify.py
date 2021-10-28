@@ -4,7 +4,7 @@ import os
 import tekore as tk
 
 from models.user import User
-from utils.utils import get_cookie_value, redirect
+from utils.utils import get_cookie_value
 
 
 class UserSpotifyClient:
