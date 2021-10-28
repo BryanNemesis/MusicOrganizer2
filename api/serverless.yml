@@ -78,6 +78,13 @@ functions:
           path: /collections
           method: POST
 
+  delete_collection:
+    handler: handlers/delete_collection.handler
+    events:
+      - httpApi:
+          path: /collections
+          method: DELETE
+
 
 
 resources:

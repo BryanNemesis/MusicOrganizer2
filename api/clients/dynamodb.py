@@ -32,5 +32,7 @@ class DynamodbClient:
     def save_collection(self, item):
         return self.client.put_item(TableName="collections", Item=item)
 
+    def delete_collection(self, id):
+        return self.client.delete_item(TableName="collections", Key={"id": {"S": id}})
 
 dynamodb_client = DynamodbClient()
