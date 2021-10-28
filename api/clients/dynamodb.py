@@ -16,6 +16,13 @@ class DynamodbClient:
             ExpressionAttributeValues={":c": {'SS': [str(collection_id)]}}
         )
 
+    def get_user_collection_ids(self, user_id):
+        user = self.client.get_item(TableName="users", Key={"user_id": {"S": user_id}})
+        try:
+            return user['Item']['collections']['SS']
+        except KeyError:
+            return None
+
     def save_user(self, item):
         return self.client.put_item(TableName="users", Item=item)
 

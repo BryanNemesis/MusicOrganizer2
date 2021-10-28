@@ -28,12 +28,15 @@ class Collection:
         return dynamodb_client.update_user_collections_list(user_id, self.id)
 
     @classmethod
-    def get_from_db(cls, id):
+    def get_from_db(cls, id, get_albums=True):
         try:
             data = dynamodb_client.get_collection(id)["Item"]
         except KeyError:
             return None
-        albums = [sp.get_album(album_id) for album_id in data["albums"]["SS"]]
+        if get_albums:
+            albums = [sp.get_album(album_id) for album_id in data["albums"]["SS"]]
+        else:
+            albums = []
         return Collection(
             name=data["name"]["S"], image_url=data["image_url"]["S"], albums=albums
         )

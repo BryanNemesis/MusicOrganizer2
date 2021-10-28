@@ -48,28 +48,37 @@ functions:
     events:
       - httpApi:
           path: /login_redirect
-          method: get
+          method: GET
 
   login_callback:
     handler: handlers/login_callback.handler
     events:
       - httpApi:
           path: /login_callback
-          method: get
+          method: GET
 
   get_saved_albums:
     handler: handlers/get_saved_albums.handler
     events:
       - httpApi:
           path: /get_saved_albums
-          method: get
+          method: GET
+
+  get_collections:
+    handler: handlers/get_collections.handler
+    events:
+      - httpApi:
+          path: /collections
+          method: GET
 
   create_collection:
     handler: handlers/create_collection.handler
     events:
       - httpApi:
           path: /collections
-          method: post
+          method: POST
+
+
 
 resources:
   - ${file(resources/collections-table.yml)}

@@ -1,6 +1,7 @@
 from typing import List
 
 from tekore.model import FullAlbum, SavedAlbumPaging, Image
+from models.collection import Collection
 
 def serialize_images(images: List[Image]):
     return [{"size": image.height, "url": image.url} for image in images]
@@ -22,3 +23,13 @@ def serialize_saved_album_paging(paging: SavedAlbumPaging):
         for album in albums
     }
     return album_data
+
+def serialize_collection_list(collections: List[Collection]):
+    return [
+        {
+            "id": str(collection.id),
+            "name": collection.name,
+            "image_url": collection.image_url
+            }
+        for collection in collections
+    ]
