@@ -85,6 +85,13 @@ functions:
           path: /collections
           method: DELETE
 
+  collection_details:
+    handler: handlers/collection_details.handler
+    events:
+      - httpApi:
+          path: /collections/{collection_id}
+          method: GET
+
 
 
 resources:

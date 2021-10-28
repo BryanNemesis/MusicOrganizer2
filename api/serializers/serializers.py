@@ -8,6 +8,7 @@ def serialize_images(images: List[Image]):
 
 def serialize_full_album(album: FullAlbum):
     album_data = {
+        "id": album.id,
         "artist": ", ".join([artist.name for artist in album.artists]),
         "title": album.name,
         "year": album.release_date.split("-")[0],
@@ -33,3 +34,11 @@ def serialize_collection_list(collections: List[Collection]):
             }
         for collection in collections
     ]
+
+def serialize_collection(collection: Collection):
+    return {
+        "id": str(collection.id),
+        "name": collection.name,
+        "image_url": collection.image_url,
+        "albums": [serialize_full_album(album) for album in collection.albums]
+    }
