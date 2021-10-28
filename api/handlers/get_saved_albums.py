@@ -5,11 +5,14 @@ from serializers.serializers import serialize_saved_album_paging
 
 
 def handler(event, context):
-    auth_result = sp.authorize(event)
-    if not auth_result['user_exists']:
-        return auth_result['redirect']
+    token = sp.get_user_token(event)
+    if not token:
+        return {
+            "statusCode": 400,
+            "body": json.dumps({"msg": "Could not get user token."})
+        }
 
-    saved_albums_paging = sp.get_saved_albums(auth_result['token'])
+    saved_albums_paging = sp.get_saved_albums(token)
     album_data = serialize_saved_album_paging(saved_albums_paging)
 
     response = {"statusCode": 200, "body": json.dumps(album_data)}

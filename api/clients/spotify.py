@@ -17,21 +17,23 @@ class UserSpotifyClient:
         self.auth = tk.UserAuth(self.creds, "user-library-read")
         self.client = tk.Spotify()
 
-    def authorize(self, event):
+    def get_new_user_token(self, code):
+        return self.creds.request_user_token(code)
+
+    def get_user_token(self, event):
         user_id = get_cookie_value(event, "user_id")
         if user_id:
             user = User.get_from_db(user_id)
             if not user:
-                return redirect(self.auth.url, event)
+                return None
             if time.time() >= int(user.token_expires_at):
                 token = self.creds.refresh_user_token(user.refresh_token)
                 user.update_token(token)
                 user.save_to_db()
-            return {"user_exists": True, "token": user.access_token}
-        return redirect(self.auth.url, event)
+            return user.access_token
 
-    def get_user_token(self, code):
-        return self.creds.request_user_token(code)
+    def get_auth_url(self):
+        return self.auth.url
 
     def get_current_user_id(self, token):
         with self.client.token_as(token):

@@ -43,11 +43,11 @@ provider:
         - Arn
 
 functions:
-  get_saved_albums:
-    handler: handlers/get_saved_albums.handler
+  login_redirect:
+    handler: handlers/login_redirect.handler
     events:
       - httpApi:
-          path: /get_saved_albums
+          path: /login_redirect
           method: get
 
   login_callback:
@@ -55,6 +55,13 @@ functions:
     events:
       - httpApi:
           path: /login_callback
+          method: get
+
+  get_saved_albums:
+    handler: handlers/get_saved_albums.handler
+    events:
+      - httpApi:
+          path: /get_saved_albums
           method: get
 
   create_collection:
