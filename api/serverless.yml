@@ -92,8 +92,8 @@ functions:
           path: /collections/{collection_id}
           method: GET
 
-  add_album_to_collection:
-    handler: handlers/add_album_to_collection.handler
+  add_or_remove_album_from_collection:
+    handler: handlers/add_or_remove_album_from_collection.handler
     events:
       - httpApi:
           path: /collections/{collection_id}

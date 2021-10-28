@@ -43,4 +43,12 @@ class DynamodbClient:
             ExpressionAttributeValues={":a": {'SS': [album_id]}}
         )
 
+    def remove_album_from_collection(self, collection_id, album_id):
+        return self.client.update_item(
+            TableName="collections",
+            Key={"id": {"S": str(collection_id)}},
+            UpdateExpression="DELETE albums :a",
+            ExpressionAttributeValues={":a": {'SS': [album_id]}}
+        )
+
 dynamodb_client = DynamodbClient()
