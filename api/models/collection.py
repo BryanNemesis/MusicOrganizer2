@@ -2,6 +2,7 @@ from typing import List
 
 import uuid
 from tekore.model import FullAlbum
+from tekore._error import BadRequest
 
 from clients.dynamodb import dynamodb_client
 from clients.spotify import app_spotify_client as sp
@@ -33,10 +34,13 @@ class Collection:
             data = dynamodb_client.get_collection(id)["Item"]
         except KeyError:
             return None
+        albums = []
         if get_albums:
-            albums = [sp.get_album(album_id) for album_id in data["albums"]["SS"]]
-        else:
-            albums = []
+            for album_id in data["albums"]["SS"]:
+                try:
+                    albums.append(sp.get_album(album_id))
+                except BadRequest:
+                    continue        
         return Collection(
             name=data["name"]["S"], image_url=data["image_url"]["S"], albums=albums
         )
