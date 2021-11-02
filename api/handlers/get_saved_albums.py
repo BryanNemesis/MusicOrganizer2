@@ -15,6 +15,4 @@ def handler(event, context):
     saved_albums_paging = sp.get_saved_albums(token)
     album_data = serialize_saved_album_paging(saved_albums_paging)
 
-    response = {"statusCode": 200, "body": json.dumps(album_data)}
-    
-    return response
+    return {"statusCode": 200, "body": json.dumps(album_data)}

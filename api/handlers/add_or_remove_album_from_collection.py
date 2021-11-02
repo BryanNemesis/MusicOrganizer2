@@ -22,7 +22,7 @@ def handler(event, context):
     else:
         return {
             "statusCode": 400,
-            "body": json.dumps({"msg": f"Incorrect request payload."}),
+            "body": json.dumps({"msg": "Incorrect request payload."}),
         }
 
     if result["ResponseMetadata"]["HTTPStatusCode"] == 200:

@@ -21,8 +21,9 @@ class Collection:
             "id": {"S": str(self.id)},
             "name": {"S": self.name},
             "image_url": {"S": self.image_url},
-            "albums": {"SS": album_ids if album_ids else [""]},
+            "albums": {"SS": album_ids or [""]},
         }
+
         return dynamodb_client.save_collection(item)
 
     def add_for_user(self, user_id):

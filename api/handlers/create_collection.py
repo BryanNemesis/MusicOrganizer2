@@ -11,7 +11,7 @@ def handler(event, context):
         return {
             "statusCode": 400,
             "body": json.dumps(
-                {"msg": f"Collection name not found in request payload."}
+                {"msg": "Collection name not found in request payload."}
             ),
         }
 
